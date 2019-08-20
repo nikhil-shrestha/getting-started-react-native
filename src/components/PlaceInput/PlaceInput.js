@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
 
+import DefaultInput from '../UI/DefaultInput/DefaultInput';
+
 export default class PlaceInput extends Component {
   state = {
     placeName: ''
@@ -24,7 +26,7 @@ export default class PlaceInput extends Component {
   render() {
     return (
       <View style={styles.inputContainer}>
-        <TextInput
+        <DefaultInput
           placeholder="An awesome place"
           onChangeText={this.placeNameChangedHandler}
           value={this.state.placeName}

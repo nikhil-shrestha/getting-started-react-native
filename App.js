@@ -5,6 +5,7 @@ import AuthScreen from './src/screens/Auth/Auth';
 import SharePlace from './src/screens/SharePlace/SharePlace';
 import FindPlace from './src/screens/FindPlace/FindPlace';
 import PlaceDetail from './src/screens/PlaceDetail/PlaceDetail';
+import SideDrawer from './src/screens/SideDrawer/SideDrawer';
 
 import configStore from './src/store/configStore';
 
@@ -35,6 +36,7 @@ Navigation.registerComponentWithRedux(
   Provider,
   store
 );
+Navigation.registerComponent('awesome-places.SideDrawer', () => SideDrawer);
 
 // Start App
 Navigation.events().registerAppLaunchedListener(() => {

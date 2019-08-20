@@ -4,28 +4,30 @@ import { Provider } from 'react-redux';
 import AuthScreen from './src/screens/Auth/Auth';
 import SharePlace from './src/screens/SharePlace/SharePlace';
 import FindPlace from './src/screens/FindPlace/FindPlace';
+import PlaceDetail from './src/screens/PlaceDetail/PlaceDetail';
+
 import configStore from './src/store/configStore';
 
 const store = configStore();
 
 // Register Screens
-Navigation.registerComponent(
+Navigation.registerComponentWithRedux(
   'awesome-places.AuthScreen',
   () => AuthScreen,
-  store,
-  Provider
+  Provider,
+  store
 );
-Navigation.registerComponent(
+Navigation.registerComponentWithRedux(
   'awesome-places.SharePlaceScreen',
   () => SharePlace,
-  store,
-  Provider
+  Provider,
+  store
 );
-Navigation.registerComponent(
+Navigation.registerComponentWithRedux(
   'awesome-places.FindPlaceScreen',
   () => FindPlace,
-  store,
-  Provider
+  Provider,
+  store
 );
 
 // Start App

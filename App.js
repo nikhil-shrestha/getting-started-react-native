@@ -29,6 +29,10 @@ Navigation.registerComponentWithRedux(
   Provider,
   store
 );
+Navigation.registerComponent(
+  'awesome-places.PlaceDetailScreen',
+  () => PlaceDetail
+);
 
 // Start App
 Navigation.events().registerAppLaunchedListener(() => {

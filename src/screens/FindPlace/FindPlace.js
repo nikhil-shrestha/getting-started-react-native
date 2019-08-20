@@ -7,8 +7,9 @@ import PlaceList from '../../components/PlaceList/PlaceList';
 
 class FindPlaceScreen extends Component {
   itemSelectedHandler = key => {
+    console.log(key);
     const selPlace = this.props.places.find(place => place.key === key);
-    Navigation.push(key, {
+    Navigation.push(this.props.componentId, {
       component: {
         name: 'awesome-places.PlaceDetailScreen',
         passProps: {

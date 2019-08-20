@@ -1,3 +1,5 @@
+import uuid from 'uuid';
+
 import * as actionTypes from './places.types';
 
 const initialState = {
@@ -10,7 +12,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         places: state.places.concat({
-          key: Math.random(),
+          key: uuid.v4(),
           name: action.payload,
           image: {
             uri:

@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  ScrollView,
+  Image
+} from 'react-native';
 import { connect } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 
 import PlaceInput from '../../components/PlaceInput/PlaceInput';
+import PickImage from '../../components/PickImage/PickImage';
+import PickLocation from '../../components/PickLocation/PickLocation';
+import MainText from '../../components/UI/MainText/MainText';
+import HeadingText from '../../components/UI/HeadingText/HeadingText';
+
 import { addPlace } from '../../store/places/places.actions';
 
 class SharePlace extends Component {
@@ -12,6 +25,10 @@ class SharePlace extends Component {
     this.isSideDrawerVisible = false;
     Navigation.events().bindComponent(this);
   }
+
+  state = {
+    placeName: ''
+  };
 
   navigationButtonPressed({ buttonId }) {
     if (buttonId === 'sideDrawerToggle') {
@@ -28,18 +45,52 @@ class SharePlace extends Component {
     }
   }
 
-  placeAddedHandler = placeName => {
+  placeNameChangedHandler = val => {
+    this.setState({
+      placeName: val
+    });
+  };
+
+  placeSubmitHandler = () => {
+    const { placeName } = this.state;
+    if (placeName.trim() === '') {
+      return;
+    }
+
     this.props.onAddPlace(placeName);
   };
 
   render() {
     return (
-      <View>
-        <PlaceInput onPlaceAdded={this.placeAddedHandler} />
-      </View>
+      <ScrollView>
+        <View style={styles.container}>
+          <MainText>
+            <HeadingText>Share a Place with us!</HeadingText>
+          </MainText>
+          <PickImage />
+          <PickLocation />
+          <PlaceInput
+            placeName={this.state.placeName}
+            onPlaceNameChanged={this.placeNameChangedHandler}
+          />
+          <View style={styles.button}>
+            <Button title="Share the Place" onPress={this.placeSubmitHandler} />
+          </View>
+        </View>
+      </ScrollView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center'
+  },
+  button: {
+    margin: 8
+  }
+});
 
 const mapDispatchToProps = dispatch => ({
   onAddPlace: placeName => dispatch(addPlace(placeName))

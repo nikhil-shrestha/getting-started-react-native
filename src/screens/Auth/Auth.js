@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ImageBackground, Dimensions } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ImageBackground,
+  Dimensions,
+  KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback
+} from 'react-native';
 import { connect } from 'react-redux';
 
 import startMainTabs from '../MainTabs/startMainTabs';
@@ -162,7 +170,7 @@ class AuthScreen extends Component {
 
     return (
       <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container} behavior="padding">
           {headingText}
           <ButtonWithBackground
             color="#29AAF4"
@@ -170,45 +178,47 @@ class AuthScreen extends Component {
           >
             Switch to {authMode === 'login' ? 'Sign Up' : 'Log In'}
           </ButtonWithBackground>
-          <View style={styles.inputContainer}>
-            <DefaultInput
-              placeholder="Your Email Address"
-              style={styles.input}
-              value={email.value}
-              valid={email.valid}
-              touched={email.touched}
-              onChangeText={val => this.updateInputState('email', val)}
-              autoCapitalize="none"
-              autoCorrect={false}
-              keyboardType="email-address"
-            />
-            <View
-              style={
-                viewMode === 'potrait' || authMode === 'login'
-                  ? styles.potraitPasswordContainer
-                  : styles.landscapePasswordContainer
-              }
-            >
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.inputContainer}>
+              <DefaultInput
+                placeholder="Your Email Address"
+                style={styles.input}
+                value={email.value}
+                valid={email.valid}
+                touched={email.touched}
+                onChangeText={val => this.updateInputState('email', val)}
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="email-address"
+              />
               <View
                 style={
                   viewMode === 'potrait' || authMode === 'login'
-                    ? styles.potraitPasswordWrapper
-                    : styles.landscapePasswordWrapper
+                    ? styles.potraitPasswordContainer
+                    : styles.landscapePasswordContainer
                 }
               >
-                <DefaultInput
-                  placeholder="Password"
-                  style={styles.input}
-                  value={password.value}
-                  valid={password.valid}
-                  touched={password.touched}
-                  onChangeText={val => this.updateInputState('password', val)}
-                  secureTextEntry
-                />
+                <View
+                  style={
+                    viewMode === 'potrait' || authMode === 'login'
+                      ? styles.potraitPasswordWrapper
+                      : styles.landscapePasswordWrapper
+                  }
+                >
+                  <DefaultInput
+                    placeholder="Password"
+                    style={styles.input}
+                    value={password.value}
+                    valid={password.valid}
+                    touched={password.touched}
+                    onChangeText={val => this.updateInputState('password', val)}
+                    secureTextEntry
+                  />
+                </View>
+                {confirmPasswordControl}
               </View>
-              {confirmPasswordControl}
             </View>
-          </View>
+          </TouchableWithoutFeedback>
           <ButtonWithBackground
             color="#29AAF4"
             onPress={this.loginHandler}
@@ -220,7 +230,7 @@ class AuthScreen extends Component {
           >
             Submit
           </ButtonWithBackground>
-        </View>
+        </KeyboardAvoidingView>
       </ImageBackground>
     );
   }

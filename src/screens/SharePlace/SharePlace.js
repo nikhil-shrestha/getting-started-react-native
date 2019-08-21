@@ -12,15 +12,15 @@ import HeadingText from '../../components/UI/HeadingText/HeadingText';
 import { addPlace } from '../../store/places/places.actions';
 
 class SharePlace extends Component {
+  state = {
+    placeName: ''
+  };
+
   constructor(props) {
     super(props);
     this.isSideDrawerVisible = false;
     Navigation.events().bindComponent(this);
   }
-
-  state = {
-    placeName: ''
-  };
 
   navigationButtonPressed({ buttonId }) {
     if (buttonId === 'sideDrawerToggle') {

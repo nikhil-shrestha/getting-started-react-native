@@ -42,7 +42,7 @@ const startTabs = () => {
                               text: 'Find Place',
                               icon: sources[0],
                               testID: 'FIND_TAB',
-                              selectedIconColor: 'blue'
+                              selectedIconColor: 'orange'
                             }
                           }
                         }
@@ -70,7 +70,7 @@ const startTabs = () => {
                               text: 'Share Place',
                               icon: sources[1],
                               testID: 'SHARE_TAB',
-                              selectedIconColor: 'blue'
+                              selectedIconColor: 'orange'
                             }
                           }
                         }

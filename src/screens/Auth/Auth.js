@@ -19,21 +19,24 @@ class AuthScreen extends Component {
         valid: false,
         validationRules: {
           isEmail: true
-        }
+        },
+        touched: false
       },
       password: {
         value: '',
         valid: false,
         validationRules: {
           minLength: 6
-        }
+        },
+        touched: false
       },
       confirmPassword: {
         value: '',
         valid: false,
         validationRules: {
           equalTo: 'password'
-        }
+        },
+        touched: false
       }
     }
   };
@@ -95,7 +98,8 @@ class AuthScreen extends Component {
               value,
               prevState.controls[key].validationRules,
               connectedValue
-            )
+            ),
+            touched: true
           }
         }
       };
@@ -127,6 +131,8 @@ class AuthScreen extends Component {
               placeholder="Your Email Address"
               style={styles.input}
               value={email.value}
+              valid={email.valid}
+              touched={email.touched}
               onChangeText={val => this.updateInputState('email', val)}
             />
             <View
@@ -147,6 +153,8 @@ class AuthScreen extends Component {
                   placeholder="Password"
                   style={styles.input}
                   value={password.value}
+                  valid={password.valid}
+                  touched={password.touched}
                   onChangeText={val => this.updateInputState('password', val)}
                 />
               </View>
@@ -161,6 +169,8 @@ class AuthScreen extends Component {
                   placeholder="Confirm Password"
                   style={styles.input}
                   value={confirmPassword.value}
+                  valid={confirmPassword.valid}
+                  touched={confirmPassword.touched}
                   onChangeText={val =>
                     this.updateInputState('confirmPassword', val)
                   }
@@ -168,7 +178,11 @@ class AuthScreen extends Component {
               </View>
             </View>
           </View>
-          <ButtonWithBackground color="#29AAF4" onPress={this.loginHandler}>
+          <ButtonWithBackground
+            color="#29AAF4"
+            onPress={this.loginHandler}
+            disabled={!confirmPassword.valid || !password.valid || !email.valid}
+          >
             Submit
           </ButtonWithBackground>
         </View>

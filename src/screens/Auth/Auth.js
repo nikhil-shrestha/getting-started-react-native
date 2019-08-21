@@ -16,6 +16,7 @@ import backgroundImage from '../../assets/images/background.jpg';
 class AuthScreen extends Component {
   state = {
     viewMode: Dimensions.get('window').height > 500 ? 'potrait' : 'landscape',
+    authMode: 'login',
     controls: {
       email: {
         value: '',
@@ -52,6 +53,14 @@ class AuthScreen extends Component {
   componentWillUnmount() {
     Dimensions.removeEventListener('change', this.updateStyles);
   }
+
+  switchAuthModeHandler = () => {
+    this.setState(prevState => {
+      return {
+        authMode: prevState.authMode === 'login' ? 'signup' : 'login'
+      };
+    });
+  };
 
   updateStyles = dims => {
     this.setState({
@@ -116,10 +125,11 @@ class AuthScreen extends Component {
   };
 
   render() {
-    let headingText = null;
-    const { viewMode } = this.state;
+    const { viewMode, authMode } = this.state;
     const { email, password, confirmPassword } = this.state.controls;
 
+    let headingText = null;
+    let confirmPasswordControl = null;
     if (viewMode === 'potrait') {
       headingText = (
         <MainText>
@@ -128,12 +138,36 @@ class AuthScreen extends Component {
       );
     }
 
+    if (authMode === 'signup') {
+      confirmPasswordControl = (
+        <View
+          style={
+            viewMode === 'potrait'
+              ? styles.potraitPasswordWrapper
+              : styles.landscapePasswordWrapper
+          }
+        >
+          <DefaultInput
+            placeholder="Confirm Password"
+            style={styles.input}
+            value={confirmPassword.value}
+            valid={confirmPassword.valid}
+            touched={confirmPassword.touched}
+            onChangeText={val => this.updateInputState('confirmPassword', val)}
+          />
+        </View>
+      );
+    }
+
     return (
       <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
         <View style={styles.container}>
           {headingText}
-          <ButtonWithBackground color="#29AAF4" onPress={() => alert('Hello')}>
-            Switch to Login
+          <ButtonWithBackground
+            color="#29AAF4"
+            onPress={this.switchAuthModeHandler}
+          >
+            Switch to {authMode === 'login' ? 'Sign Up' : 'Log In'}
           </ButtonWithBackground>
           <View style={styles.inputContainer}>
             <DefaultInput
@@ -146,14 +180,14 @@ class AuthScreen extends Component {
             />
             <View
               style={
-                viewMode === 'potrait'
+                viewMode === 'potrait' || authMode === 'login'
                   ? styles.potraitPasswordContainer
                   : styles.landscapePasswordContainer
               }
             >
               <View
                 style={
-                  viewMode === 'potrait'
+                  viewMode === 'potrait' || authMode === 'login'
                     ? styles.potraitPasswordWrapper
                     : styles.landscapePasswordWrapper
                 }
@@ -167,30 +201,17 @@ class AuthScreen extends Component {
                   onChangeText={val => this.updateInputState('password', val)}
                 />
               </View>
-              <View
-                style={
-                  viewMode === 'potrait'
-                    ? styles.potraitPasswordWrapper
-                    : styles.landscapePasswordWrapper
-                }
-              >
-                <DefaultInput
-                  placeholder="Confirm Password"
-                  style={styles.input}
-                  value={confirmPassword.value}
-                  valid={confirmPassword.valid}
-                  touched={confirmPassword.touched}
-                  onChangeText={val =>
-                    this.updateInputState('confirmPassword', val)
-                  }
-                />
-              </View>
+              {confirmPasswordControl}
             </View>
           </View>
           <ButtonWithBackground
             color="#29AAF4"
             onPress={this.loginHandler}
-            disabled={!confirmPassword.valid || !password.valid || !email.valid}
+            disabled={
+              (!confirmPassword.valid && authMode === 'signup') ||
+              !password.valid ||
+              !email.valid
+            }
           >
             Submit
           </ButtonWithBackground>

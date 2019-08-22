@@ -11,7 +11,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         token: action.payload
       };
-
+    case types.AUTH_REMOVE_TOKEN:
+      return {
+        ...state,
+        token: null
+      };
     default:
       return state;
   }

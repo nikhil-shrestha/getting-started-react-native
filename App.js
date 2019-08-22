@@ -36,28 +36,34 @@ Navigation.registerComponentWithRedux(
   Provider,
   store
 );
-Navigation.registerComponent('awesome-places.SideDrawer', () => SideDrawer);
+Navigation.registerComponentWithRedux(
+  'awesome-places.SideDrawer',
+  () => SideDrawer,
+  Provider,
+  store
+);
 
 // Start App
-Navigation.events().registerAppLaunchedListener(() => {
-  Navigation.setRoot({
-    root: {
-      stack: {
-        children: [
-          {
-            component: {
-              name: 'awesome-places.AuthScreen',
-              options: {
-                topBar: {
-                  title: {
-                    text: 'Login'
+export default () =>
+  Navigation.events().registerAppLaunchedListener(() => {
+    Navigation.setRoot({
+      root: {
+        stack: {
+          children: [
+            {
+              component: {
+                name: 'awesome-places.AuthScreen',
+                options: {
+                  topBar: {
+                    title: {
+                      text: 'Login'
+                    }
                   }
                 }
               }
             }
-          }
-        ]
+          ]
+        }
       }
-    }
+    });
   });
-});

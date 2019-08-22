@@ -12,7 +12,7 @@ const reducer = (state = initialState, action) => {
         places: action.payload
       };
 
-    case REMOVE_PLACE:
+    case types.REMOVE_PLACE:
       return {
         ...state,
         places: state.places.filter(place => {

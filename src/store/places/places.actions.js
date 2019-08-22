@@ -1,5 +1,6 @@
 import * as types from './places.types';
 import { uiStartLoading, uiStopLoading } from '../ui/ui.actions';
+import { authGetToken } from '../auth/auth.actions';
 
 export const addPlace = (placeName, location, image) => {
   return dispatch => {
@@ -46,10 +47,16 @@ export const addPlace = (placeName, location, image) => {
   };
 };
 
-export const getPlaces = () => {
-  console.log('getplaces');
+export const getPlaces = token => {
   return dispatch => {
-    fetch('https://rn-course-1566437520068.firebaseio.com/places.json')
+    dispatch(authGetToken())
+      .then(token => {
+        return fetch(
+          'https://rn-course-1566437520068.firebaseio.com/places.json?auth=' +
+            token
+        );
+      })
+      .catch(() => alert('No valid token found'))
       .then(res => res.json())
       .then(parsedRes => {
         const places = [];
@@ -80,13 +87,17 @@ export const setPlaces = places => {
 
 export const deletePlace = key => {
   return dispatch => {
-    dispatch(removePlace(key));
-    fetch(
-      'https://rn-course-1566437520068.firebaseio.com/places/' + key + '.json',
-      {
-        method: 'DELETE'
-      }
-    )
+    dispatch(authGetToken())
+      .then(token => {
+        dispatch(removePlace(key));
+        return fetch(
+          `https://rn-course-1566437520068.firebaseio.com/places/${key}.json?auth=${token}`,
+          {
+            method: 'DELETE'
+          }
+        );
+      })
+      .catch(() => alert('No valid token found'))
       .then(res => res.json())
       .then(parsedRes => {
         console.log('Done!');

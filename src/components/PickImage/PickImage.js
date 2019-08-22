@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, Button, Image, StyleSheet } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
-import imagePlaceholder from '../../assets/images/image1.jpg';
-
 export default class PickImage extends Component {
   state = {
     pickedImage: null

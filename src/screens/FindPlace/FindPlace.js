@@ -11,6 +11,8 @@ import { Navigation } from 'react-native-navigation';
 
 import PlaceList from '../../components/PlaceList/PlaceList';
 
+import { getPlaces } from '../../store/places/places.actions';
+
 class FindPlaceScreen extends Component {
   state = {
     placesLoaded: false,
@@ -22,6 +24,11 @@ class FindPlaceScreen extends Component {
     super(props);
     this.isSideDrawerVisible = false;
     Navigation.events().bindComponent(this);
+  }
+
+  componentDidMount() {
+    console.log('[component did mount]');
+    this.props.onLoadPlaces();
   }
 
   navigationButtonPressed({ buttonId }) {
@@ -148,4 +155,11 @@ const mapStateToProps = state => ({
   places: state.places.places
 });
 
-export default connect(mapStateToProps)(FindPlaceScreen);
+const mapDispatchToProps = dispatch => ({
+  onLoadPlaces: () => dispatch(getPlaces())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FindPlaceScreen);

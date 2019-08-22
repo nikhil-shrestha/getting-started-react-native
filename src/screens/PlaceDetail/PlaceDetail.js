@@ -36,7 +36,7 @@ class PlaceDetail extends Component {
   };
 
   placeDeletedHandler = () => {
-    this.props.onDeletePlace(this.props.selectedPlace.key);
+    this.props.onDeletePlace(this.props.selectedPlace.id);
     this.props.navigator.pop();
   };
 
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
   return {
-    onDeletePlace: key => dispatch(deletePlace(key))
+    onDeletePlace: id => dispatch(deletePlace(id))
   };
 };
 

@@ -1,5 +1,3 @@
-import uuid from 'uuid';
-
 import * as actionTypes from './places.types';
 
 const initialState = {
@@ -8,24 +6,17 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.ADD_PLACE:
+    case actionTypes.SET_PLACES:
       return {
         ...state,
-        places: state.places.concat({
-          key: uuid.v4(),
-          name: action.payload.placeName,
-          image: {
-            uri: action.payload.image.uri
-          },
-          location: action.payload.location
-        })
+        places: action.payload
       };
 
     case actionTypes.DELETE_PLACE:
       return {
         ...state,
         places: state.places.filter(place => {
-          return place.key !== action.payload;
+          return place.id !== action.payload;
         })
       };
 

@@ -46,6 +46,39 @@ export const addPlace = (placeName, location, image) => {
   };
 };
 
+export const getPlaces = () => {
+  console.log('get places');
+  return dispatch => {
+    fetch('https://rn-course-1566437520068.firebaseio.com/places.json')
+      .catch(err => {
+        console.log(err);
+        alert('Something went wrong, Please try again!');
+      })
+      .then(res => res.json())
+      .then(parsedRes => {
+        console.log(parsedRes);
+        const places = [];
+        for (let key in parsedRes) {
+          places.push({
+            ...parsedRes[key],
+            image: {
+              uri: parsedRes[key].image
+            },
+            id: key
+          });
+        }
+        dispatch(setPlaces(places));
+      });
+  };
+};
+
+export const setPlaces = places => {
+  return {
+    type: actionTypes.SET_PLACES,
+    payload: places
+  };
+};
+
 export const deletePlace = key => {
   return {
     type: actionTypes.DELETE_PLACE,

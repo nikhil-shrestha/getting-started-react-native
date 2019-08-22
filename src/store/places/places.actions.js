@@ -1,11 +1,12 @@
 import * as actionTypes from './places.types';
 
-export const addPlace = (placeName, location) => {
+export const addPlace = (placeName, location, image) => {
   return {
     type: actionTypes.ADD_PLACE,
     payload: {
       placeName,
-      location
+      location,
+      image
     }
   };
 };

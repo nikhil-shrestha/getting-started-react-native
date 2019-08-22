@@ -26,6 +26,10 @@ class SharePlace extends Component {
       location: {
         value: null,
         valid: false
+      },
+      image: {
+        value: null,
+        valid: false
       }
     }
   };
@@ -95,9 +99,21 @@ class SharePlace extends Component {
     }));
   };
 
+  imagePickedHandler = image => {
+    this.setState(prevState => ({
+      controls: {
+        ...prevState.controls,
+        image: {
+          value: image,
+          valid: true
+        }
+      }
+    }));
+  };
+
   placeSubmitHandler = () => {
-    const { placeName, location } = this.state.controls;
-    this.props.onAddPlace(placeName.value, location.value);
+    const { placeName, location, image } = this.state.controls;
+    this.props.onAddPlace(placeName.value, location.value, image.value);
   };
 
   render() {
@@ -108,7 +124,7 @@ class SharePlace extends Component {
           <MainText>
             <HeadingText>Share a Place with us!</HeadingText>
           </MainText>
-          <PickImage />
+          <PickImage onImagePicked={this.imagePickedHandler} />
           <PickLocation onLocationPick={this.locationPickedHandler} />
           <PlaceInput
             placeName={placeName.value}
@@ -138,7 +154,8 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onAddPlace: (placeName, location) => dispatch(addPlace(placeName, location))
+  onAddPlace: (placeName, location, image) =>
+    dispatch(addPlace(placeName, location, image))
 });
 
 export default connect(

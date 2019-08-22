@@ -11,14 +11,13 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import startMainTabs from '../MainTabs/startMainTabs';
 import DefaultInput from '../../components/UI/DefaultInput/DefaultInput';
 import HeadingText from '../../components/UI/HeadingText/HeadingText';
 import MainText from '../../components/UI/MainText/MainText';
 import ButtonWithBackground from '../../components/UI/ButtonWithBackground/ButtonWithBackground';
 import validate from '../../utils/validation';
 
-import { tryAuth } from '../../store/auth/auth.actions';
+import { tryAuth, authAutoSignIn } from '../../store/auth/auth.actions';
 
 import backgroundImage from '../../assets/images/background.jpg';
 
@@ -61,6 +60,10 @@ class AuthScreen extends Component {
 
   componentWillUnmount() {
     Dimensions.removeEventListener('change', this.updateStyles);
+  }
+
+  componentDidMount() {
+    this.props.onAutoSignIn();
   }
 
   switchAuthModeHandler = () => {
@@ -283,7 +286,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onTryAuth: (authData, authMode) => dispatch(tryAuth(authData, authMode))
+  onTryAuth: (authData, authMode) => dispatch(tryAuth(authData, authMode)),
+  onAutoSignIn: () => dispatch(authAutoSignIn())
 });
 
 export default connect(

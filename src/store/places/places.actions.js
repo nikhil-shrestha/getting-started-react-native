@@ -15,14 +15,14 @@ export const addPlace = (placeName, location, image) => {
     )
       .catch(err => {
         console.log(err);
-        alert('Something went wrong, Please try again!');
+        alert('Something went wrong, please try again!');
         dispatch(uiStopLoading());
       })
       .then(res => res.json())
       .then(parsedRes => {
         const placeData = {
           name: placeName,
-          location,
+          location: location,
           image: parsedRes.imageUrl
         };
         return fetch(
@@ -33,14 +33,14 @@ export const addPlace = (placeName, location, image) => {
           }
         );
       })
-      .catch(err => {
-        console.log(err);
-        alert('Something went wrong, Please try again!');
-        dispatch(uiStopLoading());
-      })
       .then(res => res.json())
       .then(parsedRes => {
         console.log(parsedRes);
+        dispatch(uiStopLoading());
+      })
+      .catch(err => {
+        console.log(err);
+        alert('Something went wrong, please try again!');
         dispatch(uiStopLoading());
       });
   };
@@ -50,10 +50,6 @@ export const getPlaces = () => {
   console.log('getplaces');
   return dispatch => {
     fetch('https://rn-course-1566437520068.firebaseio.com/places.json')
-      .catch(err => {
-        alert('Something went wrong, sorry :/');
-        console.log(err);
-      })
       .then(res => res.json())
       .then(parsedRes => {
         const places = [];
@@ -67,6 +63,10 @@ export const getPlaces = () => {
           });
         }
         dispatch(setPlaces(places));
+      })
+      .catch(err => {
+        alert('Something went wrong, sorry :/');
+        console.log(err);
       });
   };
 };
@@ -79,8 +79,28 @@ export const setPlaces = places => {
 };
 
 export const deletePlace = key => {
+  return dispatch => {
+    dispatch(removePlace(key));
+    fetch(
+      'https://rn-course-1566437520068.firebaseio.com/places/' + key + '.json',
+      {
+        method: 'DELETE'
+      }
+    )
+      .then(res => res.json())
+      .then(parsedRes => {
+        console.log('Done!');
+      })
+      .catch(err => {
+        alert('Something went wrong, sorry :/');
+        console.log(err);
+      });
+  };
+};
+
+export const removePlace = key => {
   return {
-    type: types.DELETE_PLACE,
-    payload: key
+    type: types.REMOVE_PLACE,
+    key: key
   };
 };

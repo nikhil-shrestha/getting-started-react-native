@@ -12,11 +12,11 @@ const reducer = (state = initialState, action) => {
         places: action.payload
       };
 
-    case types.DELETE_PLACE:
+    case REMOVE_PLACE:
       return {
         ...state,
         places: state.places.filter(place => {
-          return place.id !== action.payload;
+          return place.key !== action.key;
         })
       };
 

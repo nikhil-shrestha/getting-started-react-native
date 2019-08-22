@@ -83,7 +83,7 @@ class AuthScreen extends Component {
       email: email.value,
       password: password.value
     };
-    this.props.onLogin(authData);
+    this.props.onTryAuth(authData, this.state.authMode);
     // startMainTabs();
   };
 
@@ -283,7 +283,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onLogin: authData => dispatch(tryAuth(authData))
+  onTryAuth: (authData, authMode) => dispatch(tryAuth(authData, authMode))
 });
 
 export default connect(

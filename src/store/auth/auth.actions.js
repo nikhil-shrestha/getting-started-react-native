@@ -1,3 +1,5 @@
+import { AsyncStorage } from 'react-native';
+
 import * as types from './auth.types';
 import { uiStartLoading, uiStopLoading } from '../ui/ui.actions';
 import startMainTabs from '../../screens/MainTabs/startMainTabs';
@@ -43,6 +45,13 @@ export const tryAuth = (authData, authMode) => {
   };
 };
 
+export const authStoreToken = token => {
+  return dispatch => {
+    dispatch(authSetToken(token));
+    AsyncStorage.setItem('ap:auth:token', token);
+  };
+};
+
 export const authSetToken = token => {
   return {
     type: types.AUTH_SET_TOKEN,
@@ -55,7 +64,12 @@ export const authGetToken = () => {
     const promise = new Promise((resolve, reject) => {
       const token = getState().auth.token;
       if (!token) {
-        reject();
+        AsyncStorage.getItem('ap:auth:token')
+          .catch(err => reject())
+          .then(tokenFromStorage => {
+            dispatch(authSetToken(tokenFromStorage));
+            resolve(tokenFromStorage);
+          });
       } else {
         resolve(token);
       }

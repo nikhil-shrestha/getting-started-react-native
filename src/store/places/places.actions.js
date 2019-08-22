@@ -1,7 +1,9 @@
 import * as actionTypes from './places.types';
+import { uiStartLoading, uiStopLoading } from '../ui/ui.actions';
 
 export const addPlace = (placeName, location, image) => {
   return dispatch => {
+    dispatch(uiStartLoading());
     fetch(
       'https://us-central1-rn-course-1566437520068.cloudfunctions.net/storeImage',
       {
@@ -11,7 +13,10 @@ export const addPlace = (placeName, location, image) => {
         })
       }
     )
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err);
+        dispatch(uiStopLoading());
+      })
       .then(res => res.json())
       .then(parsedRes => {
         const placeData = {
@@ -27,10 +32,14 @@ export const addPlace = (placeName, location, image) => {
           }
         );
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err);
+        dispatch(uiStopLoading());
+      })
       .then(res => res.json())
       .then(parsedRes => {
         console.log(parsedRes);
+        dispatch(uiStopLoading());
       });
   };
 };

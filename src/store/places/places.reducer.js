@@ -13,11 +13,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         places: state.places.concat({
           key: uuid.v4(),
-          name: action.payload,
+          name: action.payload.placeName,
           image: {
             uri:
               'https://usit-blog.s3-eu-west-1.amazonaws.com/wp-content/uploads/2018/02/26140820/Cook-Islands-768x561.jpg'
-          }
+          },
+          location: action.payload.location
         })
       };
 

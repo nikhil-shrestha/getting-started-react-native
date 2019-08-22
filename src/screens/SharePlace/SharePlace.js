@@ -8,12 +8,26 @@ import PickImage from '../../components/PickImage/PickImage';
 import PickLocation from '../../components/PickLocation/PickLocation';
 import MainText from '../../components/UI/MainText/MainText';
 import HeadingText from '../../components/UI/HeadingText/HeadingText';
+import validate from '../../utils/validation';
 
 import { addPlace } from '../../store/places/places.actions';
 
 class SharePlace extends Component {
   state = {
-    placeName: ''
+    controls: {
+      placeName: {
+        value: '',
+        valid: false,
+        touched: false,
+        validationRules: {
+          notEmpty: true
+        }
+      },
+      location: {
+        value: null,
+        valid: false
+      }
+    }
   };
 
   constructor(props) {
@@ -37,22 +51,57 @@ class SharePlace extends Component {
     }
   }
 
+  updateInputState = (key, value) => {
+    let connectedValue = {};
+    if (this.state.controls[key].validationRules.equalTo) {
+      const equalControl = this.state.controls[key].validationRules.equalTo;
+      const equalValue = this.state.controls[equalControl].value;
+      connectedValue = {
+        ...connectedValue,
+        equalTo: equalValue
+      };
+    }
+    if (key === 'password') {
+      connectedValue = {
+        ...connectedValue,
+        equalTo: value
+      };
+    }
+  };
+
   placeNameChangedHandler = val => {
-    this.setState({
-      placeName: val
-    });
+    this.setState(prevState => ({
+      controls: {
+        ...prevState.controls,
+        placeName: {
+          ...prevState.controls.placeName,
+          value: val,
+          valid: validate(val, prevState.controls.placeName.validationRules),
+          touched: true
+        }
+      }
+    }));
+  };
+
+  locationPickedHandler = location => {
+    this.setState(prevState => ({
+      controls: {
+        ...prevState.controls,
+        location: {
+          value: location,
+          valid: true
+        }
+      }
+    }));
   };
 
   placeSubmitHandler = () => {
-    const { placeName } = this.state;
-    if (placeName.trim() === '') {
-      return;
-    }
-
-    this.props.onAddPlace(placeName);
+    const { placeName, location } = this.state.controls;
+    this.props.onAddPlace(placeName.value, location.value);
   };
 
   render() {
+    const { placeName, location } = this.state.controls;
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -60,13 +109,17 @@ class SharePlace extends Component {
             <HeadingText>Share a Place with us!</HeadingText>
           </MainText>
           <PickImage />
-          <PickLocation />
+          <PickLocation onLocationPick={this.locationPickedHandler} />
           <PlaceInput
-            placeName={this.state.placeName}
+            placeName={placeName.value}
             onPlaceNameChanged={this.placeNameChangedHandler}
           />
           <View style={styles.button}>
-            <Button title="Share the Place" onPress={this.placeSubmitHandler} />
+            <Button
+              title="Share the Place"
+              onPress={this.placeSubmitHandler}
+              disabled={!placeName.valid && !location.valid}
+            />
           </View>
         </View>
       </ScrollView>
@@ -85,7 +138,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onAddPlace: placeName => dispatch(addPlace(placeName))
+  onAddPlace: (placeName, location) => dispatch(addPlace(placeName, location))
 });
 
 export default connect(

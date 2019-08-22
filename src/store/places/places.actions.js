@@ -4,16 +4,25 @@ import { authGetToken } from '../auth/auth.actions';
 
 export const addPlace = (placeName, location, image) => {
   return dispatch => {
+    let authToken;
     dispatch(uiStartLoading());
-    fetch(
-      'https://us-central1-rn-course-1566437520068.cloudfunctions.net/storeImage',
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          image: image.base64
-        })
-      }
-    )
+    dispatch(authGetToken())
+      .catch(() => alert('No valid token found'))
+      .then(token => {
+        authToken = token;
+        return fetch(
+          'https://us-central1-rn-course-1566437520068.cloudfunctions.net/storeImage',
+          {
+            method: 'POST',
+            body: JSON.stringify({
+              image: image.base64
+            }),
+            headers: {
+              Authorization: `Bearer ${authToken}`
+            }
+          }
+        );
+      })
       .catch(err => {
         console.log(err);
         alert('Something went wrong, please try again!');
@@ -27,7 +36,8 @@ export const addPlace = (placeName, location, image) => {
           image: parsedRes.imageUrl
         };
         return fetch(
-          'https://rn-course-1566437520068.firebaseio.com/places.json',
+          'https://rn-course-1566437520068.firebaseio.com/places.json?auth=' +
+            authToken,
           {
             method: 'POST',
             body: JSON.stringify(placeData)

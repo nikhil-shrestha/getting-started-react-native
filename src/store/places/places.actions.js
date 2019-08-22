@@ -1,4 +1,4 @@
-import * as actionTypes from './places.types';
+import * as types from './places.types';
 import { uiStartLoading, uiStopLoading } from '../ui/ui.actions';
 
 export const addPlace = (placeName, location, image) => {
@@ -47,16 +47,15 @@ export const addPlace = (placeName, location, image) => {
 };
 
 export const getPlaces = () => {
-  console.log('get places');
+  console.log('getplaces');
   return dispatch => {
     fetch('https://rn-course-1566437520068.firebaseio.com/places.json')
       .catch(err => {
+        alert('Something went wrong, sorry :/');
         console.log(err);
-        alert('Something went wrong, Please try again!');
       })
       .then(res => res.json())
       .then(parsedRes => {
-        console.log(parsedRes);
         const places = [];
         for (let key in parsedRes) {
           places.push({
@@ -64,7 +63,7 @@ export const getPlaces = () => {
             image: {
               uri: parsedRes[key].image
             },
-            id: key
+            key: key
           });
         }
         dispatch(setPlaces(places));
@@ -74,14 +73,14 @@ export const getPlaces = () => {
 
 export const setPlaces = places => {
   return {
-    type: actionTypes.SET_PLACES,
+    type: types.SET_PLACES,
     payload: places
   };
 };
 
 export const deletePlace = key => {
   return {
-    type: actionTypes.DELETE_PLACE,
+    type: types.DELETE_PLACE,
     payload: key
   };
 };

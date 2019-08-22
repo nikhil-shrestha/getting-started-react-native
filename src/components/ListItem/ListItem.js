@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
-export default function ListItem({ placeName, placeImage, onItemPressed }) {
+export default function listItem({ placeName, placeImage, onItemPressed }) {
   return (
     <TouchableOpacity onPress={onItemPressed}>
       <View style={styles.listItem}>

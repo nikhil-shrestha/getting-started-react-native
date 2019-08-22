@@ -1,4 +1,4 @@
-import * as actionTypes from './places.types';
+import * as types from './places.types';
 
 const initialState = {
   places: []
@@ -6,13 +6,13 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.SET_PLACES:
+    case types.SET_PLACES:
       return {
         ...state,
         places: action.payload
       };
 
-    case actionTypes.DELETE_PLACE:
+    case types.DELETE_PLACE:
       return {
         ...state,
         places: state.places.filter(place => {

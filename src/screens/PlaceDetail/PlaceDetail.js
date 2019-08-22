@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
   return {
-    onDeletePlace: id => dispatch(deletePlace(id))
+    onDeletePlace: key => dispatch(deletePlace(key))
   };
 };
 

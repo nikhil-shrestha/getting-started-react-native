@@ -47,7 +47,6 @@ class FindPlaceScreen extends Component {
   }
 
   itemSelectedHandler = key => {
-    console.log(key);
     const selPlace = this.props.places.find(place => place.key === key);
     Navigation.push(this.props.componentId, {
       component: {
@@ -155,9 +154,11 @@ const mapStateToProps = state => ({
   places: state.places.places
 });
 
-const mapDispatchToProps = dispatch => ({
-  onLoadPlaces: () => dispatch(getPlaces())
-});
+const mapDispatchToProps = dispatch => {
+  return {
+    onLoadPlaces: () => dispatch(getPlaces())
+  };
+};
 
 export default connect(
   mapStateToProps,

@@ -37,6 +37,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* rncourseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* rncourseTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		935EC1DA230E254E004D0139 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 935EC1B0230E2540004D0139 /* libAirMaps.a */; };
 		93789E34230BC2420081B9E9 /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93789E2F230BC1C70081B9E9 /* libReactNativeNavigation.a */; };
 		93DC17BC230B9EF0009D126D /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93DC17B9230B9ECC009D126D /* libRNVectorIcons.a */; };
 		93DC17BE230B9F84009D126D /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93DC17BD230B9F84009D126D /* Ionicons.ttf */; };
@@ -312,6 +313,13 @@
 			remoteGlobalIDString = ED296FEE214C9CF800B7C4FE;
 			remoteInfo = "jsiexecutor-tvOS";
 		};
+		935EC1AF230E2540004D0139 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 935EC1AB230E253F004D0139 /* AirMaps.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
+			remoteInfo = AirMaps;
+		};
 		93789E2E230BC1C70081B9E9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 93789E04230BC1C70081B9E9 /* ReactNativeNavigation.xcodeproj */;
@@ -375,6 +383,7 @@
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		935EC1AB230E253F004D0139 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		93789E04230BC1C70081B9E9 /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/lib/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
 		93DC178E230B9ECB009D126D /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		93DC17BD230B9F84009D126D /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
@@ -396,6 +405,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				935EC1DA230E254E004D0139 /* libAirMaps.a in Frameworks */,
 				93789E34230BC2420081B9E9 /* libReactNativeNavigation.a in Frameworks */,
 				93DC17BC230B9EF0009D126D /* libRNVectorIcons.a in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
@@ -588,6 +598,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				935EC1AB230E253F004D0139 /* AirMaps.xcodeproj */,
 				93789E04230BC1C70081B9E9 /* ReactNativeNavigation.xcodeproj */,
 				93DC178E230B9ECB009D126D /* RNVectorIcons.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
@@ -637,6 +648,14 @@
 				00E356EE1AD99517003FC87E /* rncourseTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* rncourse-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* rncourse-tvOSTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		935EC1AC230E253F004D0139 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				935EC1B0230E2540004D0139 /* libAirMaps.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -783,6 +802,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 935EC1AC230E253F004D0139 /* Products */;
+					ProjectRef = 935EC1AB230E253F004D0139 /* AirMaps.xcodeproj */;
+				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
@@ -1103,6 +1126,13 @@
 			remoteRef = 9307E3AB23092DE1009E1D43 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		935EC1B0230E2540004D0139 /* libAirMaps.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAirMaps.a;
+			remoteRef = 935EC1AF230E2540004D0139 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		93789E2F230BC1C70081B9E9 /* libReactNativeNavigation.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1315,7 +1345,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 5WFDS7CEYJ;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-navigation/lib/ios/**";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = rncourse/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1335,7 +1365,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5WFDS7CEYJ;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-navigation/lib/ios/**";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = rncourse/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (

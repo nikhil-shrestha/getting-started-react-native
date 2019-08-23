@@ -37,7 +37,7 @@ class PlaceDetail extends Component {
   };
 
   placeDeletedHandler = () => {
-    this.props.onDeletePlace(this.props.selectedPlace.id);
+    this.props.onDeletePlace(this.props.selectedPlace.key);
     Navigation.pop(this.props.componentId);
   };
 

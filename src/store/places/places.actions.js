@@ -45,7 +45,8 @@ export const addPlace = (placeName, location, image) => {
         const placeData = {
           name: placeName,
           location: location,
-          image: parsedRes.imageUrl
+          image: parsedRes.imageUrl,
+          imagePath: parsedRes.imagePath
         };
         return fetch(
           'https://rn-course-1566437520068.firebaseio.com/places.json?auth=' +
@@ -129,16 +130,21 @@ export const setPlaces = places => {
 export const deletePlace = key => {
   return dispatch => {
     dispatch(authGetToken())
+      .catch(() => {
+        alert('No valid token found!');
+      })
       .then(token => {
         dispatch(removePlace(key));
         return fetch(
-          `https://rn-course-1566437520068.firebaseio.com/places/${key}.json?auth=${token}`,
+          'https://rn-course-1566437520068.firebaseio.com/places/' +
+            key +
+            '.json?auth=' +
+            token,
           {
             method: 'DELETE'
           }
         );
       })
-      .catch(() => alert('No valid token found'))
       .then(res => {
         if (res.ok) {
           return res.json();

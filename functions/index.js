@@ -70,7 +70,8 @@ exports.storeImage = functions.https.onRequest((request, response) => {
                   '/o/' +
                   encodeURIComponent(file.name) +
                   '?alt=media&token=' +
-                  uKey
+                  uKey,
+                imagePath: '/places/' + uKey + '.jpg'
               });
             } else {
               console.log(err);
@@ -85,3 +86,13 @@ exports.storeImage = functions.https.onRequest((request, response) => {
       });
   });
 });
+
+exports.deleteImage = functions.database
+  .ref('/places/{placeId}')
+  .onDelete(event => {
+    const placeData = event.data.previous.val();
+    const imagePath = placeData.imagePath;
+
+    const bucket = gcs.bucket('rn-course-1566437520068.appspot.com');
+    return bucket.file(imagePath).delete();
+  });

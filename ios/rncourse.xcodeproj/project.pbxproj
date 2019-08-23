@@ -40,6 +40,7 @@
 		935EC1DA230E254E004D0139 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 935EC1B0230E2540004D0139 /* libAirMaps.a */; };
 		935EC1E1230E42BB004D0139 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 935EC1E0230E42A9004D0139 /* libRNImagePicker.a */; };
 		93789E34230BC2420081B9E9 /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93789E2F230BC1C70081B9E9 /* libReactNativeNavigation.a */; };
+		93820202230FACCB00CB3DCB /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
 		93DC17BC230B9EF0009D126D /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93DC17B9230B9ECC009D126D /* libRNVectorIcons.a */; };
 		93DC17BE230B9F84009D126D /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93DC17BD230B9F84009D126D /* Ionicons.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -608,6 +609,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				935EC1DB230E42A8004D0139 /* RNImagePicker.xcodeproj */,
 				935EC1AB230E253F004D0139 /* AirMaps.xcodeproj */,
 				93789E04230BC1C70081B9E9 /* ReactNativeNavigation.xcodeproj */,
 				93DC178E230B9ECB009D126D /* RNVectorIcons.xcodeproj */,
@@ -639,7 +641,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				935EC1DB230E42A8004D0139 /* RNImagePicker.xcodeproj */,
 				93DC17BD230B9F84009D126D /* Ionicons.ttf */,
 				13B07FAE1A68108700A75B9A /* rncourse */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -1212,6 +1213,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93820202230FACCB00CB3DCB /* main.jsbundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				93DC17BE230B9F84009D126D /* Ionicons.ttf in Resources */,
@@ -1248,7 +1250,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;

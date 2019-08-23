@@ -44,26 +44,25 @@ Navigation.registerComponentWithRedux(
 );
 
 // Start App
-export default () =>
-  Navigation.events().registerAppLaunchedListener(() => {
-    Navigation.setRoot({
-      root: {
-        stack: {
-          children: [
-            {
-              component: {
-                name: 'awesome-places.AuthScreen',
-                options: {
-                  topBar: {
-                    title: {
-                      text: 'Login'
-                    }
+export default () => {
+  Navigation.setRoot({
+    root: {
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'awesome-places.AuthScreen',
+              options: {
+                topBar: {
+                  title: {
+                    text: 'Login'
                   }
                 }
               }
             }
-          ]
-        }
+          }
+        ]
       }
-    });
+    }
   });
+};

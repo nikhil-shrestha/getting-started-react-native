@@ -20,32 +20,38 @@ import validate from '../../utils/validation';
 import { addPlace } from '../../store/places/places.actions';
 
 class SharePlace extends Component {
-  state = {
-    controls: {
-      placeName: {
-        value: '',
-        valid: false,
-        touched: false,
-        validationRules: {
-          notEmpty: true
-        }
-      },
-      location: {
-        value: null,
-        valid: false
-      },
-      image: {
-        value: null,
-        valid: false
-      }
-    }
-  };
-
   constructor(props) {
     super(props);
     this.isSideDrawerVisible = false;
     Navigation.events().bindComponent(this);
   }
+
+  componentWillMount() {
+    this.reset();
+  }
+
+  reset = () => {
+    this.setState({
+      controls: {
+        placeName: {
+          value: '',
+          valid: false,
+          touched: false,
+          validationRules: {
+            notEmpty: true
+          }
+        },
+        location: {
+          value: null,
+          valid: false
+        },
+        image: {
+          value: null,
+          valid: false
+        }
+      }
+    });
+  };
 
   navigationButtonPressed({ buttonId }) {
     if (buttonId === 'sideDrawerToggle') {
@@ -121,6 +127,9 @@ class SharePlace extends Component {
   placeSubmitHandler = () => {
     const { placeName, location, image } = this.state.controls;
     this.props.onAddPlace(placeName.value, location.value, image.value);
+    this.reset();
+    this.imagePicker.reset();
+    this.locationPicker.reset();
   };
 
   render() {
@@ -143,8 +152,14 @@ class SharePlace extends Component {
           <MainText>
             <HeadingText>Share a Place with us!</HeadingText>
           </MainText>
-          <PickImage onImagePicked={this.imagePickedHandler} />
-          <PickLocation onLocationPick={this.locationPickedHandler} />
+          <PickImage
+            onImagePicked={this.imagePickedHandler}
+            ref={ref => (this.imagePicker = ref)}
+          />
+          <PickLocation
+            onLocationPick={this.locationPickedHandler}
+            ref={ref => (this.locationPicker = ref)}
+          />
           <PlaceInput
             placeName={placeName.value}
             onPlaceNameChanged={this.placeNameChangedHandler}

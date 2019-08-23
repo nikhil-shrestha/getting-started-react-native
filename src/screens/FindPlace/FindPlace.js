@@ -29,6 +29,9 @@ class FindPlaceScreen extends Component {
   componentDidAppear() {
     console.log('screen changed');
     this.props.onLoadPlaces();
+    // this.setState({
+    //   placesLoaded: false
+    // });
   }
 
   navigationButtonPressed({ buttonId }) {

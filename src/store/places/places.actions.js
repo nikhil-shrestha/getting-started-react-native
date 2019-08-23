@@ -2,6 +2,12 @@ import * as types from './places.types';
 import { uiStartLoading, uiStopLoading } from '../ui/ui.actions';
 import { authGetToken } from '../auth/auth.actions';
 
+export const startAddPlace = () => {
+  return {
+    type: types.START_ADD_PLACE
+  };
+};
+
 export const addPlace = (placeName, location, image) => {
   return dispatch => {
     let authToken;
@@ -48,12 +54,19 @@ export const addPlace = (placeName, location, image) => {
       .then(parsedRes => {
         console.log(parsedRes);
         dispatch(uiStopLoading());
+        dispatch(placeAdded());
       })
       .catch(err => {
         console.log(err);
         alert('Something went wrong, please try again!');
         dispatch(uiStopLoading());
       });
+  };
+};
+
+export const placeAdded = () => {
+  return {
+    type: types.PLACE_ADDED
   };
 };
 

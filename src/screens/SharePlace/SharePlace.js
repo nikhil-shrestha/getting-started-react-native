@@ -17,7 +17,7 @@ import MainText from '../../components/UI/MainText/MainText';
 import HeadingText from '../../components/UI/HeadingText/HeadingText';
 import validate from '../../utils/validation';
 
-import { addPlace } from '../../store/places/places.actions';
+import { addPlace, startAddPlace } from '../../store/places/places.actions';
 
 class SharePlace extends Component {
   constructor(props) {
@@ -52,6 +52,21 @@ class SharePlace extends Component {
       }
     });
   };
+
+  componentDidUpdate() {
+    if (this.props.placeAdded) {
+      Navigation.mergeOptions(this.props.componentId, {
+        bottomTabs: {
+          currentTabIndex: 0
+        }
+      });
+    }
+  }
+
+  componentDidAppear() {
+    console.log('screen changed');
+    this.props.onStartAddPlace();
+  }
 
   navigationButtonPressed({ buttonId }) {
     if (buttonId === 'sideDrawerToggle') {
@@ -182,12 +197,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  isLoading: state.ui.isLoading
+  isLoading: state.ui.isLoading,
+  placeAdded: state.places.placeAdded
 });
 
 const mapDispatchToProps = dispatch => ({
   onAddPlace: (placeName, location, image) =>
-    dispatch(addPlace(placeName, location, image))
+    dispatch(addPlace(placeName, location, image)),
+  onStartAddPlace: () => dispatch(startAddPlace())
 });
 
 export default connect(

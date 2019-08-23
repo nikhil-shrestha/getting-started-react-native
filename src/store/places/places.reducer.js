@@ -1,7 +1,8 @@
 import * as types from './places.types';
 
 const initialState = {
-  places: []
+  places: [],
+  placeAdded: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,6 +19,18 @@ const reducer = (state = initialState, action) => {
         places: state.places.filter(place => {
           return place.key !== action.key;
         })
+      };
+
+    case types.PLACE_ADDED:
+      return {
+        ...state,
+        placeAdded: true
+      };
+
+    case types.START_ADD_PLACE:
+      return {
+        ...state,
+        placeAdded: false
       };
 
     default:

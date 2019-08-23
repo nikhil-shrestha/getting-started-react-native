@@ -26,8 +26,8 @@ class FindPlaceScreen extends Component {
     Navigation.events().bindComponent(this);
   }
 
-  componentDidMount() {
-    console.log('[component did mount]');
+  componentDidAppear() {
+    console.log('screen changed');
     this.props.onLoadPlaces();
   }
 

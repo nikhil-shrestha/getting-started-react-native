@@ -5,7 +5,7 @@ import { uiStartLoading, uiStopLoading } from '../ui/ui.actions';
 import startMainTabs from '../../screens/MainTabs/startMainTabs';
 import App from '../../../App';
 
-const API_KEY = 'AIzaSyAXAD5GJMl6JDGRpWUSjJOG9p8PM8zBeBI';
+const API_KEY = '[GOOGLE_API_KEY]';
 
 export const tryAuth = (authData, authMode) => {
   return dispatch => {
